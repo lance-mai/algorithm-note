@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * 连续数组
+ * 连续数组（前缀和与哈希表的结合）
  * 1、前缀和。看了20分钟，还是把问题想复杂了。。。
  * 2、参考labuladong的思路，将0替换为-1，花了1h，捉虫（key和value搞反了，key应该是prefix，value应该是indexList）
  * 但是内存超出限制了，该怎么怎么办呢？ 检查了一下，发现是我将数组的capacity设置为n/2，因此超出限制。将该阈值设置为默认(16)后问题解决。
@@ -25,16 +25,18 @@ public class FindMaxLength_525 {
         }
         // 使用map记录相同前缀和的下标
         HashMap<Integer, List<Integer>> prefixMapIndex = new HashMap<>();
-        int[] prefix = new int[n + 1];
-        prefixMapIndex.put(prefix[0], new ArrayList<>(List.of(0)));
+        // int[] prefix = new int[n + 1];
+        int prefix = 0;
+        int index = 0;
+        prefixMapIndex.put(prefix, new ArrayList<>(List.of(index)));
         int maxLen = 0;
         for (int i = 1; i <= n; i++) {
-            prefix[i] = prefix[i - 1] + nums[i - 1];
-            List<Integer> indexList = prefixMapIndex.get(prefix[i]);
+            prefix = prefix + nums[i - 1];
+            List<Integer> indexList = prefixMapIndex.get(prefix);
             if (indexList == null) {
                 indexList = new ArrayList<>();
                 indexList.add(i);
-                prefixMapIndex.put(prefix[i], indexList);
+                prefixMapIndex.put(prefix, indexList);
             } else {
                 maxLen = Math.max(maxLen, i - indexList.getFirst());
             }
