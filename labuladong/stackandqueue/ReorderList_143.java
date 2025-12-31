@@ -1,6 +1,6 @@
 package labuladong.stackandqueue;
 
-import java.util.LinkedList;
+import java.util.ArrayDeque;
 
 /**
  * 重排链表。
@@ -10,42 +10,31 @@ import java.util.LinkedList;
  * 出了两个问题：1）正反两个数组，都装了一个null  2）在组装链表时，最后一个节点忘了断开，导致循环链表出现
  * 优化1：链表改为数组 => 性能没啥变化
  * 优化2：去掉HashSet，性能还是没有多大变化
- * 看labuladong解法：这道题难点
+ * 看labuladong解法：这道题难点在于链表无法从尾部循环，那么可以利用栈的特点，从尾部开始循环
+ * 优化：压栈的时候不用虚拟头结点，不然会多一个null
+ * 好好画图，就会了
  */
 public class ReorderList_143 {
     public void reorderList(ListNode head) {
-        ListNode dummyHead = new ListNode();
-        dummyHead.next = head;
-        LinkedList<ListNode> forwardList = new LinkedList<>();
-        LinkedList<ListNode> backwardList = new LinkedList<>();
-
-        ListNode cur = dummyHead;
+        ArrayDeque<ListNode> stack = new ArrayDeque<>();
+        ListNode cur = head;
         while (cur != null) {
+            stack.push(cur);
             cur = cur.next;
-            if (cur != null) {
-                forwardList.addLast(cur);
-                backwardList.addFirst(cur);
-            }
         }
-        int size = forwardList.size();
-        dummyHead = new ListNode();
-        cur = dummyHead;
-        for (int i = 0; i < size; i++) {
-            ListNode forwardNode = forwardList.get(i);
-            ListNode backwardNode = backwardList.get(i);
-            if (forwardNode == backwardNode) {
-                cur.next = forwardNode;
-                cur.next.next = null;
+        cur = head;
+        while (cur != null) {
+            // 链表尾部节点
+            ListNode backNode = stack.pop();
+            ListNode next = cur.next;
+            // 结束条件，不管链表size是奇数还是偶数
+            if (backNode == next || backNode == cur) {
+                backNode.next = null;
                 break;
-            } else if (forwardNode == cur) {
-                cur.next = null;
-                break;
-            } else {
-                cur.next = forwardNode;
-                cur = cur.next;
-                cur.next = backwardNode;
-                cur = cur.next;
             }
+            cur.next = backNode;
+            backNode.next = next;
+            cur = next;
         }
     }
 
