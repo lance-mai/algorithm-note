@@ -10,4 +10,16 @@ public class CommonUtils {
         }
         return dummyHead.next;
     }
+
+    public static void printList(ListNode head) {
+        ListNode cur = head;
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        while (cur != null) {
+            sb.append(cur.val).append(" -> ");
+            cur = cur.next;
+        }
+        sb.append("null]");
+        System.out.println(sb);
+    }
 }
