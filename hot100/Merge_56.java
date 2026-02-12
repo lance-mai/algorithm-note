@@ -8,6 +8,7 @@ import java.util.Comparator;
  * 合并区间
  * 解法1：先升序排序，再进行合并
  * 报错，越界了：因为如果合并以后，有些数组就不add到list里面，那么下标就不能每次访问时+1，而是访问最后一个元素 length-1
+ * int[] preList = result.get(result.size() - 1);
  */
 public class Merge_56 {
     // 解法1
