@@ -3,6 +3,7 @@ package hot100;
 /**
  * 寻找两个正序数组的中位数
  * 解法1：将两个有序数组合并成一个有序数组，双指针。然后再判断元素个数是奇数还是偶数，再求中位数
+ * 这个解法是我自己想出来的，ok
  */
 public class FindMedianSortedArrays_4 {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
