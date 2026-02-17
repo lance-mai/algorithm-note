@@ -14,7 +14,7 @@ import java.util.Arrays;
 public class LengthOfLIS_300 {
     // 解法2：二分查找
     public int lengthOfLIS(int[] nums) {
-
+        return 1;
     }
 
     public int lengthOfLIS1(int[] nums) {
