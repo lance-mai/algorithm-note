@@ -1,7 +1,5 @@
 package hot100;
 
-import java.beans.beancontext.BeanContext;
-import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /**
