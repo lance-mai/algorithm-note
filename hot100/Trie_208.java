@@ -14,10 +14,10 @@ public class Trie_208 {
     }
 
     public boolean search(String word) {
-
+        return false;
     }
 
     public boolean startsWith(String prefix) {
-
+        return false;
     }
 }
