@@ -1,4 +1,4 @@
-package labuladong.prefixsum;
+package hot100;
 
 /**
  * 除自身以外数组的乘积
