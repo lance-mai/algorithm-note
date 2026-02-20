@@ -24,7 +24,7 @@ public class DetectCycle_142 {
         }
         // 将慢指针指向头节点，两者匀速向前
         slow = head;
-        while (slow != fast) {
+        while (slow != fast) { // 这里是先判断，然后才向前进，因此不会漏掉这种情况：环入口就是第一个节点的情况
             slow = slow.next;
             fast = fast.next;
         }
