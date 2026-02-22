@@ -26,7 +26,7 @@ public class LRUCache_146 {
         int value = cache.get(key);
         // jdk21
         // cache.putLast(key, value);
-        // jdk8:
+        // jdk8
         makeRecently(key, value);
         return value;
     }
@@ -45,7 +45,10 @@ public class LRUCache_146 {
             cache.remove(first);
         }
         // jdk21
-        cache.putLast(key, value);
+        // cache.putLast(key, value);
+        // jdk8
+        cache.put(key, value);
+        makeRecently(key, value);
     }
 
     private void makeRecently(int key, int value) {
