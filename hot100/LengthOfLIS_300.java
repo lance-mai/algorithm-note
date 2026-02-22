@@ -28,8 +28,9 @@ public class LengthOfLIS_300 {
                 // 需要做判断，如果后面一个元素已经不递增了，那就要算dp[i]
                 // 为什么不是<=，不是严格递增么。
                 // 解答：No，因为序列是以nums[i]结尾的。核心判断：nums[j] < nums[i] 是严格递增的关键
+                // i是i前面的元素(j<i)，如果nums[j]<nums[i]，说明nums[i]可以接在nums[j]结尾的递增子序列后面，形成一个更长序列
                 if (nums[j] < nums[i]) {
-                    // 更新dp[i]，如果nums[j]能接在nums[i]前面，那么dp[i]= dp[j]+1（与之前的dp[i]取最大值）
+                    // 更新dp[i]，如果nums[j]能接在nums[i]前面，那么dp[i]= dp[j]+1（与之前的dp[i]取最大值）。这里的+1就是加上nums[i]这个元素
                     // 为什么要取最大值？因为一个dp[i]可能会被多个j尝试更新，需保留最优解
                     dp[i] = Math.max(dp[i], dp[j] + 1);
                 }
