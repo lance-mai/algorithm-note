@@ -14,6 +14,7 @@ package additional;
  * 修正2：结果为空时需要处理。
  * 修正3：高位需要叠加。正确：res[high] += sum / 10;  错误：res[high] = sum / 10;
  * 为什么低位不用叠加。因为低位计算sum的时候就加上了。int sum = product + res[low];
+ * 补充：初始化成int[]数组，就没那么多事了。
  */
 public class Multiply_43 {
     public String multiply(String num1, String num2) {
