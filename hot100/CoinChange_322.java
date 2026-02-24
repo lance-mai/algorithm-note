@@ -1,7 +1,6 @@
 package hot100;
 
 import java.util.HashMap;
-import java.util.HashSet;
 
 /**
  * 零钱兑换
@@ -14,15 +13,53 @@ import java.util.HashSet;
  * 哈哈哈，备忘录是我自己做出来的，渐渐有点感觉了哈哈哈哈哈，好开心
  */
 public class CoinChange_322 {
-    // 解法3：动态规划
-    HashMap<Integer, Integer> memo = new HashMap<>(); // 备忘录，amount->dp
+
+    /*
+     我自己尝试第二遍做。20260224
+     没做对，为什么：
+     1、子问题中比较最小值时忘了+1：res = Math.min(res, subProblem + 1);
+     2、存备忘录和返回值的顺序没正确
+     3、忘了这个：if (subProblem == -1) continue;
+        这个不是剪枝，而是影响到结果正确性。当子问题为-1时，说明找不到
+        当子问题为-1时，说明amount-coin无法凑出，所以不要和res比较最小值了
+     */
+    HashMap<Integer, Integer> coinsToAmount;
 
     public int coinChange(int[] coins, int amount) {
+        coinsToAmount = new HashMap<>();
         return dp(coins, amount);
     }
 
-    // 定义：要凑出金额amount，至少需要dp[coins, amount]个硬币
     private int dp(int[] coins, int amount) {
+        if (amount == 0) return 0;
+        if (amount < 0) return -1;
+        int res = Integer.MAX_VALUE;
+        for (int coin : coins) {
+            int subProblem = coinsToAmount.containsKey(amount - coin)
+                    ? coinsToAmount.get(amount - coin)
+                    : dp(coins, amount - coin);
+            // 当子问题为-1时，说明amount-coin无法凑出，所以不要和res比较最小值了
+            if (subProblem == -1) continue;
+            res = Math.min(res, subProblem + 1); // 这里需要+1，因为子问题加上本层递归
+        }
+
+        // coinsToAmount.put(amount, res);
+        // return res == Integer.MAX_VALUE ? -1 : res;
+        res = res == Integer.MAX_VALUE ? -1 : res;
+        coinsToAmount.put(amount, res);
+        return res;
+    }
+
+
+    // 解法3：动态规划
+    HashMap<Integer, Integer> memo = new HashMap<>(); // 备忘录，amount->dp
+
+    public int coinChange1(int[] coins, int amount) {
+        return dp1(coins, amount);
+    }
+
+    // 定义：要凑出金额amount，至少需要dp[coins, amount]个硬币
+    private int dp1(int[] coins, int amount) {
         // base case
         if (amount == 0) return 0;
         if (amount < 0) return -1;
