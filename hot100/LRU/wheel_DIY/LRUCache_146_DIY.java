@@ -15,7 +15,7 @@ import java.util.HashMap;
  * 3、doublelist需要自行维护size，封装起来，LRU不care
  * 4、doublelist只需要3个方法
  * 1）Node remove(Node x)，这是为了将节点提升为队头前，先将节点清除
- * 2）void addFirst(Node x)，将新节点排在队尾，作为最近最常用的节点
+ * 2）void addLast(Node x)，将新节点排在队尾，作为最近最常用的节点
  * 3）void removeFirst()，当缓存满时，需要清掉最近最不常用的节点，约定为first
  * 5、LRUCache需要维护一个map（key -> Node）
  * 6、LRUCache需要makeRecently方法，将元素提升为最近最常使用
