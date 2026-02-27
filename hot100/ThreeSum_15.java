@@ -34,18 +34,19 @@ public class ThreeSum_15 {
                 int rightN = nums[right];
                 int compute = nums[i] + leftN + rightN;
                 if (compute > 0) {
-                    while (left < right && rightN == nums[right]) right--;
+                    while (left < right && rightN == nums[right]) right--; // 使用while是为了跳过多个重复不满足的数
                 } else if (compute < 0) {
                     while (left < right && leftN == nums[left]) left++;
                 } else {
                     ArrayList<Integer> list = new ArrayList<>(Arrays.asList(leftN, rightN, nums[i]));
                     result.add(list);
                     // 当得到其中一个答案以后，应该怎么操作 left、right呢？ -》 两个指针都要移动
-                    while (left < right && leftN == nums[left]) left++;
+                    // 如果得到结果以后，指针不移动，就会死循环
+                    while (left < right && leftN == nums[left]) left++; // 跳过满足条件的重复数
                     while (left < right && rightN == nums[right]) right--;
                 }
             }
-            while (i < nums.length - 1 && nums[i] == nums[i + 1]) i++;
+            while (i < nums.length - 1 && nums[i] == nums[i + 1]) i++; // 跳过重复的i
         }
         return result;
     }
