@@ -17,7 +17,7 @@ import java.util.ArrayDeque;
  * 感觉备忘录优化的方法比单调栈的方法更简单一些。是从暴力解法演化而来的
  * 时间复杂度O(N)，但空间复杂度是O(N)，因为要准备两个备忘录数组
  * 如何将复杂度降低到O(1)呢？ 接下来请看双指针解法
- * 解法3：双指针解法（labuladong）
+ * 解法3：双指针解法（labuladong） --》 不好理解
  * 其实和备忘录是同样的思路，但是不用提前计算了，而是边走边算，节省空间复杂度
  *
  *
@@ -75,7 +75,7 @@ public class Trap_42 {
         int sum = 0; // 记录雨水
         ArrayDeque<Integer> stack = new ArrayDeque<>();
         for (int i = 0; i < height.length; i++) {
-            // 当后面柱子高于底层柱子时，可以考虑收集雨水
+            // 当后面柱子高于底层柱子时，可以考虑收集雨水。一层一层的算
             while (!stack.isEmpty() && height[i] > height[stack.peek()]) {
                 Integer cur = stack.pop();
                 // 如果弹出当前柱子最左边一个矮一点的柱子后，发现stack已经空了，这意味着不存在左边界，收集不了雨水
